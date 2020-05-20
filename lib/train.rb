@@ -63,5 +63,9 @@ class Train
   def self.search(search)
     self.get_trains("SELECT * FROM trains WHERE lower(name) LIKE '%#{search}%';")
   end
+
+  def train 
+    Train.find(@train_id)
+  end
 end
 

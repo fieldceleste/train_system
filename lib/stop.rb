@@ -43,5 +43,23 @@ class Stop
     @city_id = params[:city_id].to_i
     DB.exec("UPDATE trains_cities SET train_id = '#{@train_id}', city_id = #{@city_id} WHERE id = #{@id};")
   end
-end
+
+  def self.clear
+    DB.exec("DELETE FROM trains_cities")
+  end
+
+  # def delete
+  #   DB.exec("DELETE FROM trains_cities WHERE train_id = #{@id};") 
+  # end
+  def self.find_by_train(tr_id)
+    cities = []
+    returned_cities = DB.exec("SELECT * FROM cities WHERE train_id = #{tr_id};")
+    returned_cities.each() do |city|
+      name = city.fecth("name")
+      id = city.fetch("id").to_i
+      cities.push(Stop.new({:name => name, :train_id => tr_id, :id => id}))
+    end
+    cities
+  end
+end 
 
