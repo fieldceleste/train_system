@@ -1,4 +1,3 @@
-require('pry')
 
 class Train
   attr_reader :id, :name

@@ -1,5 +1,3 @@
-require 'pry'
-require 'spec_helper'
 
 class Stop
   attr_reader :id

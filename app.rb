@@ -2,10 +2,12 @@ require('sinatra')
 require('sinatra/reloader')
 require('./lib/train')
 require('./lib/city')
+require('./lib/stop')
 require('pry')
+require("pg")
 also_reload('lib/**/*.rb')
 
-DB = PG.connect({:dbname => "train_system"})
+DB = PG.connect({:dbname => "train_system_test"})
 
 get('/') do
   erb(:index)
@@ -17,7 +19,7 @@ end
 
 get('/operator') do
   @cities = City.all
-  @trains = City.all
+  @trains = Train.all
   erb(:operator)
 end
 
@@ -27,8 +29,14 @@ get('/rider') do
   erb(:rider)
 end
 
-get('/operator/new') do
-  erb(:new_route)
+post('/rider') do 
+  city = params.fetch("city_name")
+  train = params.fetch("train_name")
+  train = Train.new({:name => train_name, :id => nil})
+  train.save()
+  city = City.new({:name => city_name, :id => nil})
+  city.save()
+  redirect to('/operator')
 end
 
 
