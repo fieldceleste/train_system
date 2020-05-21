@@ -11,6 +11,7 @@ describe '#Train' do
     end
   end
 
+
   describe('#save') do
     it('saves a train') do
       train = Train.new({:name => "Red line", :id => nil})
@@ -76,7 +77,7 @@ describe '#Train' do
     train.save()
     train2 = Train.new({:name => "Blue Line", :id => nil})
     train2.save()
-    expect(Train.search("blue")).to(eq([train2]))
+    expect(Train.search("Blue Line")).to(eq([train2]))
   end
 end
 

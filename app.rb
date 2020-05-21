@@ -7,14 +7,32 @@ also_reload('lib/**/*.rb')
 
 DB = PG.connect({:dbname => "train_system"})
 
-# get('/') do
-#   @words = Word.all
-#   erb(:words_homepage)
-# end
+get('/') do
+  erb(:index)
+end
 
-# get('/words_homepage') do
-#   redirect to ('/')
-# end
+get('/index') do
+  erb(:index)
+end
+
+get('/operator') do
+  @cities = City.all
+  @trains = City.all
+  erb(:operator)
+end
+
+get('/rider') do
+  @cities = City.all
+  @trains = Train.all
+  erb(:rider)
+end
+
+get('/operator/new') do
+  erb(:new_route)
+end
+
+
+
 
 # get('/words_homepage/new') do
 #   erb(:new_word)

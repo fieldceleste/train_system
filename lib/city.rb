@@ -2,24 +2,27 @@ require('pry')
 
 class City 
 
-   attr_reader :id       #//===> could add state
-   attr_accessor :name, :train_id
+  attr_reader :id, :name
+  attr_accessor :id, :name
 
   def initialize(attributes)
     @name = attributes[:name]
-    # @state = attributes[:state]
     @id = attributes[:id]
+  end
+
+  def self.get_cities(cities)
+    cities_output = []
+    cities.each() do |city|
+      name = city.fetch("name")
+      id = city.fetch("id").to_i
+      cities_output.push(City.new({:name => name, :id => id}))
+    end
+    cities_output
   end
 
   def self.all
     returned_cities = DB.exec("SELECT * FROM cities;")
-    cities= []
-    returned_cities.each() do |city|
-      name = city.fetch("name")
-      id = city.fetch("id").to_i
-      cities.push(City.new({:name => name, :id => id}))
-    end
-    cities
+    City.get_cities(returned_cities)
   end
 
   def self.clear 
@@ -58,8 +61,8 @@ class City
     result = []
     names = city_names.grep(/#{name}/)
     names.each do |n| 
-      display_city = City.all.select {|a| a.name == n}
-      result.concat(display_city)
+    display_city = City.all.select {|a| a.name == n}
+    result.concat(display_city)
     end
     result
   end

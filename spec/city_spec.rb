@@ -7,9 +7,10 @@ require('stop')
 
 describe '#City' do
 
-  describe('.all') do
+
+  describe('#all') do
     it('returns an empty array when there are no cities') do
-      expect(City.all).to(eq([]))
+      expect(City.all()).to(eq([]))
     end
   end
 
@@ -52,12 +53,12 @@ describe '#City' do
     end
   end
 
-  describe('#update') do 
+  describe('#update') do    
     it("updates a city by id") do 
       city = City.new({:name => "Portland", :id=> nil})
       city.save()
       city.update("Hillsboro") 
-      expect(city.name).to(eq("Hillsboro"))
+      expect(city.name()).to(eq("Hillsboro"))
     end
   end
 
